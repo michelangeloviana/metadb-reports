@@ -3,23 +3,24 @@
 DROP FUNCTION IF EXISTS titles_added;
 
 CREATE FUNCTION titles_added(
-    start_date date DEFAULT '1000-01-01',
-    end_date date DEFAULT '3000-01-01'
+    start_date date DEFAULT '2010-01-01',
+    end_date date DEFAULT '2050-12-31'
 )
 RETURNS TABLE(
-    instance_hrid text,
+    hrid text,
     title text,
-    cataloged_date timestamp
+    created_date timestamp
 )
-AS $$
+AS
+$$
 SELECT
-    instance_hrid,
-    title,
-    cataloged_date
-FROM inventory_ext.instance
-WHERE start_date <= cataloged_date::date
-  AND cataloged_date::date < end_date
-ORDER BY cataloged_date DESC
+    jsonb_extract_path_text(i.jsonb,'hrid') AS hrid,
+    jsonb_extract_path_text(i.jsonb,'title') AS title,
+    jsonb_extract_path_text(i.jsonb,'metadata','createdDate')::timestamp AS created_date
+FROM folio_inventory.instance AS i
+WHERE jsonb_extract_path_text(i.jsonb,'metadata','createdDate')::timestamp >= start_date
+  AND jsonb_extract_path_text(i.jsonb,'metadata','createdDate')::timestamp < end_date + INTERVAL '1 day'
+ORDER BY created_date DESC
 $$
 LANGUAGE SQL
 STABLE
