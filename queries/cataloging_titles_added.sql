@@ -8,6 +8,7 @@ CREATE FUNCTION titles_added(
 )
 RETURNS TABLE(
     hrid text,
+    inventory_url text,
     title text,
     place_of_publication text,
     publisher text,
@@ -18,6 +19,11 @@ AS
 $$
 SELECT
     jsonb_extract_path_text(i.jsonb,'hrid') AS hrid,
+
+    'https://demo1.folio.ebsco.com/inventory?query=' ||
+    jsonb_extract_path_text(i.jsonb,'hrid') ||
+    '&sort=relevance' AS inventory_url,
+
     jsonb_extract_path_text(i.jsonb,'title') AS title,
 
     i.jsonb #>> '{publication,0,place}' AS place_of_publication,
