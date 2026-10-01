@@ -9,15 +9,16 @@ CREATE FUNCTION titles_added(
 RETURNS TABLE(
     hrid text,
     title text,
+    contributors text,
     created_date timestamp
 )
 AS
 $$
 SELECT
     jsonb_extract_path_text(i.jsonb,'hrid') AS hrid,
-    jsonb_extract_path_text(i.jsonb,'title') AS "Instance Title",
-    jsonb_extract_path_text(i.jsonb,'contributors') AS "Instance Contributors",
-    jsonb_extract_path_text(i.jsonb,'metadata','createdDate')::timestamp AS "Instance created date"
+    jsonb_extract_path_text(i.jsonb,'title') AS title,
+    jsonb_extract_path_text(i.jsonb,'contributors') AS contributors,
+    jsonb_extract_path_text(i.jsonb,'metadata','createdDate')::timestamp AS created_date
 FROM folio_inventory.instance AS i
 WHERE jsonb_extract_path_text(i.jsonb,'metadata','createdDate')::timestamp >= start_date
   AND jsonb_extract_path_text(i.jsonb,'metadata','createdDate')::timestamp < end_date + INTERVAL '1 day'
