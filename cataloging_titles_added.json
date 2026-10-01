@@ -1,0 +1,14 @@
+{
+  "name": "Titles Added",
+  "description": "Titles added during a selected period",
+  "parameters": [
+    {
+      "name": "start_date",
+      "type": "date"
+    },
+    {
+      "name": "end_date",
+      "type": "date"
+    }
+  ]
+}
