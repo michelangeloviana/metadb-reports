@@ -1,14 +1,19 @@
 {
-  "name": "Titles Added",
-  "description": "Titles added during a selected period",
-  "parameters": [
-    {
-      "name": "start_date",
-      "type": "date"
-    },
-    {
-      "name": "end_date",
-      "type": "date"
-    }
-  ]
+    "displayName": "Titles Added",
+    "description": "Titles added during a selected period",
+    "instructions": "Enter parameters",
+    "parameters": [
+        {
+            "name": "start_date",
+            "displayName": "Earliest cataloging data",
+            "type": "date",
+            "required": false
+        },
+        {
+            "name": "end_date",
+            "displayName": "Latest cataloging date",
+            "type": "date",
+            "required": false
+        }
+    ]
 }
