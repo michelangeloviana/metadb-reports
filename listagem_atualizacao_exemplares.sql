@@ -7,22 +7,22 @@ CREATE FUNCTION listagem_actualizacao_exemplares(
     end_date   date DEFAULT '2050-01-01'
 )
 RETURNS TABLE(
-    hrid                 text,
-    barcode              text,
-    cota                 text,
-    prefixo_localizacao  text,
-    data_criacao         text,
-    timestamp_criacao    timestamptz,
-    idusuariocriador     uuid,
-    codigousuario        text,
-    nomeusuario          text,
-    grupousuario         text
+    Hrid                 text,
+    CodBarras            text,
+    Chamada              text,
+    Prefixo_localizacao  text,
+    Data_criacao         text,
+    Timestamp_criacao    timestamptz,
+    IdUsuarioCriador     uuid,
+    Codigousuario        text,
+    Nomeusuario          text,
+    Grupousuario         text
 )
 AS $$
 
 SELECT
-    i.jsonb->>'hrid',
-    i.jsonb->>'barcode',
+    i.jsonb->>'Hrid',
+    i.jsonb->>'CodBarras',
     concat_ws(' ',
         i.jsonb->'effectiveCallNumberComponents'->>'prefix',
         i.jsonb->'effectiveCallNumberComponents'->>'callNumber',
