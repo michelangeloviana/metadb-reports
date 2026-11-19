@@ -21,8 +21,8 @@ RETURNS TABLE(
 AS $$
 
 SELECT
-    i.jsonb->>'Hrid',
-    i.jsonb->>'CodBarras',
+    i.jsonb->>'hrid',
+    i.jsonb->>'barcode',
     concat_ws(' ',
         i.jsonb->'effectiveCallNumberComponents'->>'prefix',
         i.jsonb->'effectiveCallNumberComponents'->>'callNumber',
